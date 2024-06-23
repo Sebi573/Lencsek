@@ -35,9 +35,6 @@ public class GUI extends javax.swing.JFrame {
     private FokuszPont f3;
     private FokuszPont f4;
 
-    private boolean fenySugarakLatszanak = true;
-    private boolean kepLatszik = true;
-
     /**
      * Creates new form GUI
      */
@@ -138,52 +135,84 @@ public class GUI extends javax.swing.JFrame {
         return new Pozicio(Objektum.getVaszonSzelesseg() / 2, Objektum.getVaszonMagassag() / 2);
     }
 
+//    private double kepernyoTeteje() {
+//        // f(x) = f/t * x
+//
+//        double startX = getOrigo().getX();
+//        double startY = getOrigo().getY();
+//        System.out.println(f.getF());
+//        System.out.println(t.getT());
+//        
+//        while (startX * (f.getF() / t.getT()) < Objektum.getVaszonMagassag()) {
+//            startX += 10;
+//        }
+//        return startX;
+//
+//    }
+
     /**
      * A kép típusától függően kirajzolja a beérkező fénysugarakat.
      */
     private void rajzolSugarak() {
-        if (fenySugarakLatszanak) {
-            if (getLencseTipus().equals("szoro") && getKepTipus().equals("latszolagos")) {
-                k.setF(k.getF() * -1);
+        if (getLencseTipus().equals("szoro") && getKepTipus().equals("latszolagos") && k.getF() > 0) {
+            k.setF(k.getF() * -1);
+        }
+
+        if (getKepTipus().equals("latszolagos")) {
+            try {
+                vaszon.torolSugarak();
+                Sugar s1;
+                Sugar s3 = null;
+                Sugar s4 = null;
+                Sugar s5 = null;
+                
+                if (getLencseTipus().equals("szoro")) {
+                    Pozicio[] pontok1 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), t.getLocation().getY())};
+                    s1 = new Sugar(pontok1);
+
+                    Pozicio[] pontok3 = new Pozicio[]{new Pozicio(getOrigo().getX(), k.getLocation().getY()), new Pozicio(0, k.getLocation().getY())};
+                    s3 = new Sugar(pontok3, true);
+
+                    Pozicio[] pontok4 = new Pozicio[]{new Pozicio(getOrigo().getX(), t.getLocation().getY()), new Pozicio(getOrigo().getX() - getFokusz(), getOrigo().getY())};
+                    s4 = new Sugar(pontok4, true);
+                    
+                    Pozicio[] pontok5 = new Pozicio[]{t.getLocation(), getOrigo()};
+                    s5 = new Sugar(pontok5, true);
+                    
+                } else {
+                    Pozicio[] pontok1 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), t.getLocation().getY()), new Pozicio(Objektum.getVaszonSzelesseg() / 2 + f.getF(), Objektum.getVaszonMagassag() / 2), new Pozicio(Objektum.getVaszonSzelesseg() / 2 + f.getF(), Objektum.getVaszonMagassag() / 2), new Pozicio(Objektum.getVaszonSzelesseg() - 100, Objektum.getVaszonMagassag())};
+                    s1 = new Sugar(pontok1);
+                }
+
+                Pozicio[] pontok2 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), k.getLocation().getY()), new Pozicio(getOrigo().getX(), k.getLocation().getY()), new Pozicio(Objektum.getVaszonSzelesseg(), k.getLocation().getY())};
+                Sugar s2 = new Sugar(pontok2);
+
+                vaszon.addObjektum(s1);
+                vaszon.addObjektum(s2);
+                if (s3 != null && s4 != null) {
+                    vaszon.addObjektum(s3);
+                    vaszon.addObjektum(s4);
+                }
+                vaszon.addObjektum(s5);
+            } catch (Exception e) {
             }
 
-            if (getKepTipus().equals("latszolagos")) {
-                try {
-                    vaszon.torolSugarak();
-                    Sugar s1;
-                    if (getLencseTipus().equals("szoro")) {
-                        Pozicio[] pontok1 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), t.getLocation().getY()), new Pozicio(Objektum.getVaszonSzelesseg() / 2 + 300, 0)};
-                        s1 = new Sugar(pontok1);
-                    } else {
-                        Pozicio[] pontok1 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), t.getLocation().getY()), new Pozicio(Objektum.getVaszonSzelesseg() / 2 + f.getF(), Objektum.getVaszonMagassag() / 2), new Pozicio(Objektum.getVaszonSzelesseg() / 2 + f.getF(), Objektum.getVaszonMagassag() / 2), new Pozicio(Objektum.getVaszonSzelesseg() - 100, Objektum.getVaszonMagassag())};
-                        s1 = new Sugar(pontok1);
-                    }
+        } else {
+            try {
+                vaszon.torolSugarak();
+                Pozicio[] pontok1 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), t.getLocation().getY()), k.getLocation()};
+                Sugar s1 = new Sugar(pontok1);
 
-                    Pozicio[] pontok2 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), k.getLocation().getY()), new Pozicio(getOrigo().getX(), k.getLocation().getY()), new Pozicio(Objektum.getVaszonSzelesseg(), k.getLocation().getY())};
-                    Sugar s2 = new Sugar(pontok2);
+                Pozicio[] pontok2 = new Pozicio[]{t.getLocation(), k.getLocation()};
+                Sugar s2 = new Sugar(pontok2);
 
-                    vaszon.addObjektum(s1);
-                    vaszon.addObjektum(s2);
+                Pozicio[] pontok3 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), k.getLocation().getY()), k.getLocation()};
+                Sugar s3 = new Sugar(pontok3);
 
-                } catch (Exception e) {
-                }
-            } else {
-                try {
-                    vaszon.torolSugarak();
-                    Pozicio[] pontok1 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), t.getLocation().getY()), k.getLocation()};
-                    Sugar s1 = new Sugar(pontok1);
-
-                    Pozicio[] pontok2 = new Pozicio[]{t.getLocation(), k.getLocation()};
-                    Sugar s2 = new Sugar(pontok2);
-
-                    Pozicio[] pontok3 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), k.getLocation().getY()), k.getLocation()};
-                    Sugar s3 = new Sugar(pontok3);
-
-                    vaszon.addObjektum(s1);
-                    vaszon.addObjektum(s2);
-                    vaszon.addObjektum(s3);
-                } catch (Exception e) {
-                }
+                vaszon.addObjektum(s1);
+                vaszon.addObjektum(s2);
+                vaszon.addObjektum(s3);
+            } catch (Exception e) {
             }
         }
 
@@ -238,7 +267,6 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaKepJellemzo = new javax.swing.JTextArea();
         jLabelKepJellemzes = new javax.swing.JLabel();
-        jCheckBoxFenySugarak = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lencsék");
@@ -363,19 +391,6 @@ public class GUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
         jPanelBeallitasok.add(jLabelKepJellemzes, gridBagConstraints);
 
-        jCheckBoxFenySugarak.setSelected(true);
-        jCheckBoxFenySugarak.setText("Fénysugarak mutatása");
-        jCheckBoxFenySugarak.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBoxFenySugarakItemStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanelBeallitasok.add(jCheckBoxFenySugarak, gridBagConstraints);
-
         getContentPane().add(jPanelBeallitasok, java.awt.BorderLayout.PAGE_END);
 
         pack();
@@ -442,16 +457,6 @@ public class GUI extends javax.swing.JFrame {
         kiirJellemzes();
     }//GEN-LAST:event_jSpinnerFokuszTavolsagStateChanged
 
-    private void jCheckBoxFenySugarakItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxFenySugarakItemStateChanged
-        if (fenySugarakLatszanak) {
-            vaszon.torolSugarak();
-            fenySugarakLatszanak = false;
-        } else {
-            rajzolSugarak();
-            fenySugarakLatszanak = true;
-        }
-    }//GEN-LAST:event_jCheckBoxFenySugarakItemStateChanged
-
     /**
      * @param args the command line arguments
      */
@@ -483,7 +488,6 @@ public class GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupLencseTipus;
-    private javax.swing.JCheckBox jCheckBoxFenySugarak;
     private javax.swing.JLabel jLabelFokusztavolsag;
     private javax.swing.JLabel jLabelKepJellemzes;
     private javax.swing.JLabel jLabelTargymagassag;
