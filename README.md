@@ -1,2 +1,2 @@
 A projekt UML diagramja (PlantUML):
-<img src="">
+<img src="src/org/sebi/misc.png">
