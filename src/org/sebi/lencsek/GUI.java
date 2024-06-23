@@ -134,22 +134,7 @@ public class GUI extends javax.swing.JFrame {
     private Pozicio getOrigo() {
         return new Pozicio(Objektum.getVaszonSzelesseg() / 2, Objektum.getVaszonMagassag() / 2);
     }
-
-//    private double kepernyoTeteje() {
-//        // f(x) = f/t * x
-//
-//        double startX = getOrigo().getX();
-//        double startY = getOrigo().getY();
-//        System.out.println(f.getF());
-//        System.out.println(t.getT());
-//        
-//        while (startX * (f.getF() / t.getT()) < Objektum.getVaszonMagassag()) {
-//            startX += 10;
-//        }
-//        return startX;
-//
-//    }
-
+    
     /**
      * A kép típusától függően kirajzolja a beérkező fénysugarakat.
      */
@@ -157,7 +142,6 @@ public class GUI extends javax.swing.JFrame {
         if (getLencseTipus().equals("szoro") && getKepTipus().equals("latszolagos") && k.getF() > 0) {
             k.setF(k.getF() * -1);
         }
-
         if (getKepTipus().equals("latszolagos")) {
             try {
                 vaszon.torolSugarak();
@@ -165,7 +149,9 @@ public class GUI extends javax.swing.JFrame {
                 Sugar s3 = null;
                 Sugar s4 = null;
                 Sugar s5 = null;
-                
+                Sugar s6 = null;
+                Sugar s7 = null;
+
                 if (getLencseTipus().equals("szoro")) {
                     Pozicio[] pontok1 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), t.getLocation().getY())};
                     s1 = new Sugar(pontok1);
@@ -175,25 +161,36 @@ public class GUI extends javax.swing.JFrame {
 
                     Pozicio[] pontok4 = new Pozicio[]{new Pozicio(getOrigo().getX(), t.getLocation().getY()), new Pozicio(getOrigo().getX() - getFokusz(), getOrigo().getY())};
                     s4 = new Sugar(pontok4, true);
-                    
+
                     Pozicio[] pontok5 = new Pozicio[]{t.getLocation(), getOrigo()};
                     s5 = new Sugar(pontok5, true);
-                    
-                } else {
-                    Pozicio[] pontok1 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), t.getLocation().getY()), new Pozicio(Objektum.getVaszonSzelesseg() / 2 + f.getF(), Objektum.getVaszonMagassag() / 2), new Pozicio(Objektum.getVaszonSzelesseg() / 2 + f.getF(), Objektum.getVaszonMagassag() / 2), new Pozicio(Objektum.getVaszonSzelesseg() - 100, Objektum.getVaszonMagassag())};
+
+                } else {                    
+                    Pozicio[] pontok1 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), t.getLocation().getY()), new Pozicio(Objektum.getVaszonSzelesseg() / 2 + f.getF(), Objektum.getVaszonMagassag() / 2), new Pozicio(Objektum.getVaszonSzelesseg() / 2 + f.getF(), Objektum.getVaszonMagassag() / 2)};
                     s1 = new Sugar(pontok1);
+                    
+                    Pozicio[] pontok5 = new Pozicio[]{new Pozicio(getOrigo().getX(), t.getLocation().getY()), k.getLocation()};
+                    s6 = new Sugar(pontok5, true);
+                    
+                    Pozicio[] pontok6 = new Pozicio[]{k.getLocation(), new Pozicio(getOrigo().getX(), k.getLocation().getY())};
+                    s7 = new Sugar(pontok6, true);
                 }
 
-                Pozicio[] pontok2 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), k.getLocation().getY()), new Pozicio(getOrigo().getX(), k.getLocation().getY()), new Pozicio(Objektum.getVaszonSzelesseg(), k.getLocation().getY())};
+                Pozicio[] pontok2 = new Pozicio[]{t.getLocation(), new Pozicio(getOrigo().getX(), k.getLocation().getY()), new Pozicio(getOrigo().getX(), k.getLocation().getY())};
                 Sugar s2 = new Sugar(pontok2);
 
                 vaszon.addObjektum(s1);
                 vaszon.addObjektum(s2);
-                if (s3 != null && s4 != null) {
+                if (s3 != null && s4 != null && s5 != null) {
                     vaszon.addObjektum(s3);
                     vaszon.addObjektum(s4);
+                    vaszon.addObjektum(s5);
                 }
-                vaszon.addObjektum(s5);
+                if(s6 != null && s7 != null) {
+                    vaszon.addObjektum(s6);
+                    vaszon.addObjektum(s7);
+                }
+                
             } catch (Exception e) {
             }
 
