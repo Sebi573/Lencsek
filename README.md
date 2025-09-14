@@ -3,8 +3,6 @@
 Ez a Java program egy **egylencsés optikai rendszer** működését szemlélteti.  
 A felhasználó különböző tárgytávolságokat, gyújtótávolságokat és lencsetípusokat (gyűjtő / szóró) állíthat be, majd a program grafikusan ábrázolja a lencsén áthaladó fénysugarak útját, valamint a keletkező képet.  
 
----
-
 ## ✨ Funkciók
 - **Gyűjtő- és szórólencse támogatás**  
 - **Paraméterezhető tárgytávolság és gyújtótávolság**  
