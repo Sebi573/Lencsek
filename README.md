@@ -10,7 +10,7 @@ A felhasználó különböző tárgytávolságokat, gyújtótávolságokat és l
 - **Paraméterezhető tárgytávolság és gyújtótávolság**  
 - **Fénysugarak kirajzolása** (tengellyel párhuzamos, fókuszba tartó, optikai középponton átmenő)  
 - **Kép keletkezésének szemléltetése** (valós / látszólagos, egyenes / fordított, nagyított / kicsinyített)  
-- Egyszerű grafikus felület (Java Swing vagy JavaFX)  
+- Egyszerű grafikus felület (Java Swing)
 
 ---
 
@@ -25,3 +25,17 @@ A felhasználó különböző tárgytávolságokat, gyújtótávolságokat és l
    javac Main.java
    java Main
    ```
+3. A felületen állítsd be a kívánt paramétereket, majd figyeld a változásokat a grafikus ábrán.
+
+## 📌 Példa
+- Tárgytávolság: 2f
+- Lencse: gyűjtőlencse
+➡ Fordított, valódi, azonos méretű kép keletkezik.
+
+## ⚙️ Követelmények
+Java 11 vagy újabb
+
+## 💡 Fejlesztési ötletek
+- Kétlencsés rendszerek modellezése
+- Animációk
+- Interaktív skálázás és nagyítás
