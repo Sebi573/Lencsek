@@ -17,8 +17,8 @@ A felhasználó különböző tárgytávolságokat, gyújtótávolságokat és l
 ## 🚀 Használat
 1. Töltsd le vagy klónozd a repót:  
    ```bash
-   git clone https://github.com/felhasznalonev/egylencses-vizualizacio.git
-   cd egylencses-vizualizacio
+   git clone https://github.com/Sebi573/Lencsek.git
+   cd Lencsek
    ```
 2. Fordítás és futtatás
    ```java
